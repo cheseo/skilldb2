@@ -1,0 +1,3 @@
+#!/bin/bash
+
+awk '/.*Create =/ {start=1; next} /^`/{start=0; print ""; next} start{print}' db.go | sqlite3 db.db

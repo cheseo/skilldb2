@@ -1,0 +1,15 @@
+html{
+    width: 80ch;
+    margin: auto;
+    padding: auto;
+}
+
+label, .fromtemplate {
+    margin: 2ch;
+}
+
+input {
+    margin: 0.5ch;
+}
+
+

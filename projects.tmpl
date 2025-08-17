@@ -1,0 +1,10 @@
+<h5>{{.Name}}</h5>
+
+{{if .Skills}}
+	<b>Skills:</b><br />
+		<ul>
+			{{range .Skills}}
+				<li>{{.Name}}</li>
+			{{end}}
+		</ul>
+{{end}}

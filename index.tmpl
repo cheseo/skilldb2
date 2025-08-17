@@ -1,0 +1,9 @@
+{{ template "header.tmpl" "Index of Employees"}}
+
+{{ range . }}
+<div>
+	<a href="/employee?eid={{.Eid}}">{{.Name}}</a>
+</div>
+{{end}}
+
+{{ template "footer.tmpl" }}

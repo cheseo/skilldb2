@@ -1,0 +1,28 @@
+<table>
+<tr>
+	<td>Name</td>
+	<td><input type="text" value="{{.Name}}" disabled /><br></br>
+</tr>
+
+<tr>
+	<td>Institute</td>
+	<td><input type="text" value="{{.Institute}}" disabled /><br></br>
+</tr>
+
+<tr>
+	<td>Certification</td>
+	<td><input type="text" value="{{.Certification}}" disabled /><br></br>
+</tr>
+
+<tr>
+	<td>Duration</td>
+	<td><input type="text" value="{{.Duration}}" disabled /><br></br>
+</tr>
+</table>
+{{if .Skills}}
+	<ul>
+		{{range .Skills}}
+		<li>{{.Name}}</li>
+		{{end}}
+	</ul>
+{{end}}

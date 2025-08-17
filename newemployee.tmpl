@@ -1,0 +1,136 @@
+{{template "header.tmpl" "New Employee"}}
+<h3>Add Employee</h3>
+<form method="post">
+	<table>
+		<tr>
+			<td><label>Name</label></td>
+			<td><input type="text" name="Name" required /></td>
+		</tr>
+		<tr>
+			<td><label>Email</label></td>
+			<td><input type="text" name="Email" required /></td>
+		</tr>
+		<tr>
+			<td><label>PhoneNo</label></td>
+			<td><input type="text" name="PhoneNo" required /></td>
+		</tr>
+	</table>
+        <h4>Projects</h4>
+	<div id="projects">
+		<template id="projectsTemplate">
+			<div class="project fromtemplate">
+				<table>
+					<tr>
+						Project <td><label>Name</label></td>
+						<td><input type="text" name="Project" required /> </td>
+					</tr>
+					<tr>
+						<td><label>Skills</label></td>
+						<td><input type="text" name="ProjectSkill" placeholder="Skill1,Skill2" required /> </td>
+					</tr>
+				</table>
+				<button type="button">Remove</button>
+			</div>
+		</template>
+	</div>
+	<button type="button" onclick="newItem('#projects')">Add Project</button>
+	<h4>Work Experience</h4>
+	<div id="workexperience">
+		<template id="workexperienceTemplate">
+			<div class="workExp fromtemplate">
+				<table>
+				<tr>
+					<td><label>CompanyName</label></td>
+					<td><input type="text" name="WorkCompanyName" required /></td>
+				</tr>
+				<tr>
+					<td><label>Title</label></td>
+					<td><input type="text" name="WorkTitle" /></td>
+				</tr>
+				<tr>
+					<td><label>Duration</label></td>
+					<td><input type="text" name="WorkDuration" /></td>
+				</tr>
+				<tr>
+					Work <td><label>Skills</label></td>
+					<td><input type="text" name="WorkSkills" placeholder="Skill1,Skill2" required /></td>
+				</tr>
+				</table>
+				<button type="button">Remove Work Experience</button>
+			</div>
+		</template>
+	</div>
+	<button type="button" onclick="newItem('#workexperience');">Add Work Experience</button>
+	<h4>Training</h4>
+	<div id="training">
+		<template id="trainingTemplate">
+			<div class="training fromtemplate">
+				<table>
+				<tr>
+					<td><label>Name</label></td>
+					<td><input type="text" name="TrainingName" required /></td>
+				</tr>
+				<tr>
+					<td><label>Institute</label></td>
+					<td><input type="text" name="TrainingInstitute" /></td>
+				</tr>
+				
+				<tr>
+					<td><label>Certificate</label></td>
+					<td><input type="text" name="TrainingCertificate" /></td>
+				</tr>
+				<tr>
+					<td><label>Duration</label></td>
+					<td><input type="text" name="TrainingDuration" /></td>
+				</tr>
+				</table>
+				<button type="button">Remove Training</button>
+			</div>
+		</template>
+	</div>
+	<button type="button" onclick="newItem('#training');">Add Training</button>
+	<h4>Education</h4>
+	<div id="education">
+		<template id="educationTemplate">
+			<div class="education fromtemplate">
+				<table>
+				<tr>
+					<td><label>Name</label></td>
+					<td><input type="text" name="EducationName" required /></td>
+				</tr>
+				<tr>
+					<td><label>Duration</label></td>
+					<td><input type="text" name="EducationDuration" /></td>
+				</tr>
+				</table>
+				<button type="button">Remove Education</button>
+			</div>
+		</template>
+	</div>
+	<button type="button" onclick="newItem('#education');">Add Education</button>
+	<h4>Skills</h4>
+	<input type="text" name="Skills" palceholder="Skill1,Skill2" required />
+	<br>
+		<center><input type="Submit" value="Add Employee" /></center>
+</form>
+<script type="text/javascript">
+	function removeParentButton(elem){
+	elem.addEventListener('click', (e) => {
+	let el = e.target;
+	if(el.tagName == "BUTTON"){
+	el.parentNode.parentNode.removeChild(el.parentNode);
+	}
+	})
+	}
+	var rem = document.querySelectorAll("#training,#projects,#workexperience,#education");
+	rem.forEach((elem) => {
+	removeParentButton(elem);
+	});
+	function newItem(elem){
+	let tdiv = document.querySelector(elem);
+	let ttmpl = document.querySelector(elem + "Template");
+	let clone = ttmpl.content.cloneNode(true);
+	let child = tdiv.appendChild(clone);
+	}
+</script>
+{{template "footer.tmpl"}}
