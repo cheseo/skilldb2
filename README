@@ -1,0 +1,15 @@
+# Skilldb2
+A sample skill database project.
+
+# install
+$ git clone https://codeberg.org/boink/skilldb2
+$ cd skilldb2
+$ make
+
+# run
+The default port is 8888.
+$ ./skilldb2
+
+
+# api
+see file api.go
