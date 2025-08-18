@@ -10,7 +10,7 @@ import (
 func getTemplate() (*template.Template) {
 	t, err := template.New("noooooooo").Funcs(template.FuncMap{
 		"Join": strings.Join,
-	}).ParseGlob("*.tmpl")
+	}).ParseGlob("templates/*.tmpl")
 	if err != nil {
 		log.Fatal("couldn't parse templates", err)
 	}

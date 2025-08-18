@@ -9,11 +9,11 @@
 		</tr>
 		<tr>
 			<td><label>Email</label></td>
-			<td><input type="text" name="Email" {{if .Email}} value="{{.Email}}" {{end}} required /></td>
+			<td><input type="email" name="Email" {{if .Email}} value="{{.Email}}" {{end}} required /></td>
 		</tr>
 		<tr>
 			<td><label>PhoneNo</label></td>
-			<td><input type="text" name="PhoneNo" {{if .PhoneNo}} value="{{.PhoneNo}}" {{end}} required /></td>
+			<td><input type="tel" name="PhoneNo" {{if .PhoneNo}} value="{{.PhoneNo}}" {{end}} required /></td>
 		</tr>
 	</table>
         <h4>Projects</h4>
@@ -64,8 +64,8 @@
 					<td><input type="text" name="WorkTitle" value="{{.Title}}" /></td>
 				</tr>
 				<tr>
-					<td><label>Duration</label></td>
-					<td><input type="text" name="WorkDuration" value="{{.Duration}}" /></td>
+					<td><label>Duration (years)</label></td>
+					<td><input type="number" name="WorkDuration" value="{{.Duration}}" /></td>
 				</tr>
 				<tr>
 					<td><label>Work Skills</label></td>
@@ -87,8 +87,8 @@
 					<td><input type="text" name="WorkTitle" /></td>
 				</tr>
 				<tr>
-					<td><label>Duration</label></td>
-					<td><input type="text" name="WorkDuration" /></td>
+					<td><label>Duration (years)</label></td>
+					<td><input type="number" name="WorkDuration" /></td>
 				</tr>
 				<tr>
 					<td><label>Work Skills</label></td>
@@ -119,8 +119,8 @@
 					<td><input type="text" name="TrainingCertificate" value="{{.Certificate}}" /></td>
 				</tr>
 				<tr>
-					<td><label>Duration</label></td>
-					<td><input type="text" name="TrainingDuration"  value="{{.Duration}}" /></td>
+					<td><label>Duration (years)</label></td>
+					<td><input type="number" name="TrainingDuration"  value="{{.Duration}}" /></td>
 				</tr>
 			</table>
 			<button type="button">Remove Training</button>
@@ -143,8 +143,8 @@
 					<td><input type="text" name="TrainingCertificate" /></td>
 				</tr>
 				<tr>
-					<td><label>Duration</label></td>
-					<td><input type="text" name="TrainingDuration" /></td>
+					<td><label>Duration (years)</label></td>
+					<td><input type="number" name="TrainingDuration" /></td>
 				</tr>
 				</table>
 				<button type="button">Remove Training</button>

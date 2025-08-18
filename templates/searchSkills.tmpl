@@ -1,0 +1,21 @@
+{{template "header.tmpl" }}
+<form method="get">
+	<input type="text" name="skills" class="searchbar" {{if .Term}} value="{{.term}}" {{end}} placeholder="Skill1, Skill2" />
+	<button type="Submit">🔎</button>
+</form>
+{{if not .Term}}
+	{{if .Err}}
+		{{.Err}}
+	{{else}}
+		{{with .Result}}
+			{{ range . }}
+			<div class="employee">
+				<a href="/employee?eid={{.Eid}}">{{.Name}}</a><br/>
+				{{.Email}}<br/>
+				{{.PhoneNo}}<br/>
+			</div>
+			{{end}}
+		{{end}}
+	{{end}}
+{{end}}
+{{template "footer.tmpl" }}

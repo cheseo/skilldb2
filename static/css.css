@@ -12,4 +12,11 @@ input {
     margin: 0.5ch;
 }
 
+.searchbar {
+    width: 80%;
+}
 
+.searcherror {
+    margin: 2ch;
+    margin-top: 5ch;
+}

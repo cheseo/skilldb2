@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -131,18 +132,34 @@ func (a App) delEmp(w http.ResponseWriter, r *http.Request){
 	}
 }
 
+type searchResult struct {
+	Term   string
+	Err    error
+	Result []Employee
+}
+
 func (a App) searchSkill(w http.ResponseWriter, r *http.Request){
 	s := r.FormValue("skills")
+	sr := searchResult{}
 	if s == "" {
-		sendTemplate(w, "searchFailed.tmpl", "No skills given.")
+		sendTemplate(w, "searchResult.tmpl", sr)
 		return
 	}
-	ss := strings.Split(s, ",")
+	sr.Term = s
+	ss := []string{}
+	for _, v := range strings.Split(s, ",") {
+		s = strings.TrimSpace(v)
+		if s != "" {
+			ss = append(ss, s)
+		}
+	}
 	ctx := a.Ctx()
 	e := SearchSkills(ctx, ss)
-	if ctx.err != nil {
-		handleError(w, ctx)
-		return
+	if len(e) < 1 {
+		ctx.err = fmt.Errorf("Not Found")
 	}
-	sendTemplate(w, "index.tmpl", GetAllEmployees(a.Ctx(), e))
+	sr.Result = GetAllEmployees(ctx, e)
+	sr.Err = ctx.err
+	log.Println("searched:", ss, "got", e, "as", sr.Result, "err", sr.Err)
+	sendTemplate(w, "searchResult.tmpl", sr)
 }
