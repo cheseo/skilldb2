@@ -9,4 +9,4 @@ skilldb2: *.go
 db:
 	-rm db.db
 	./createdb
-	-sqlite3 db.db < sampledata.sql
+	-sqlite3 db.db < sample.sql

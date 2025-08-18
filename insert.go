@@ -130,7 +130,7 @@ func GetProjects(ctx *context) (p []Project) {
 	if(ctx.err != nil){
 		return
 	}
-	query := `select count(*), pid, name, url from project where eid = ?;`
+	query := `select pid, name, url from project where eid = ?;`
 	r, ctx.err = ctx.db.Query(query, ctx.eid)
 	if ctx.err != nil {
 		ctx.err = fmt.Errorf("GetProjects: %w", ctx.err)
@@ -140,13 +140,11 @@ func GetProjects(ctx *context) (p []Project) {
 	log.Println("rows is", r)
 	for r.Next() {
 		pp := Project{}
-		count := 0
-		if ctx.err =r.Scan(&count, &pp.Pid, &pp.Name, &pp.Url); ctx.err != nil {
+		if ctx.err =r.Scan(&pp.Pid, &pp.Name, &pp.Url); ctx.err != nil {
 			log.Println("ERROR GetProjects: %w", ctx.err)
 			ctx.err = fmt.Errorf("GetProjects: %w", ctx.err)
 			break
 		}
-		log.Println("count is: ", count)
 		pp.Skills = GetProjectSkills(ctx, pp.Pid)
 		log.Print("GetProjects: appending", pp, "to", p)
 		p = append(p, pp)
