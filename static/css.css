@@ -4,7 +4,7 @@ html{
     padding: auto;
 }
 
-label, .fromtemplate {
+label, .fromtemplate, .employee {
     margin: 2ch;
 }
 

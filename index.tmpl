@@ -1,8 +1,10 @@
 {{ template "header.tmpl" "Index of Employees"}}
 
 {{ range . }}
-<div>
-	<a href="/employee?eid={{.Eid}}">{{.Name}}</a>
+<div class="employee">
+	<a href="/employee?eid={{.Eid}}">{{.Name}}</a><br/>
+	{{.Email}}<br/>
+	{{.PhoneNo}}<br/>
 </div>
 {{end}}
 

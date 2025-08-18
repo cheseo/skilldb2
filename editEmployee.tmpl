@@ -1,4 +1,4 @@
-{{template "header.tmpl" "New Employee"}}
+{{template "header.tmpl" "Employee Editor"}}
 <h3>Add Employee</h3>
 <form method="post">
 	{{if .}}<input type="hidden" name="eid" value="{{.Eid}}" />{{end}}
@@ -22,12 +22,12 @@
 		<div class="project fromtemplate">
 			<table>
 				<tr>
-					Project <td><label>Name</label></td>
-					<td><input type="text" name="Project" {{if .Project}} value="{{.Project}}" {{end}} required /> </td>
+					<td><label>Project Name</label></td>
+					<td><input type="text" name="Project" value="{{.Name}}" required /> </td>
 				</tr>
 				<tr>
 					<td><label>Skills</label></td>
-					<td><input type="text" name="ProjectSkill" {{if .ProjectSkill}} value="{{.ProjectSkill}}" {{end}} placeholder="Skill1,Skill2" required /> </td>
+					<td><input type="text" name="ProjectSkill" value="{{Join .Skills `,`}}" placeholder="Skill1,Skill2" required /> </td>
 				</tr>
 			</table>
 			<button type="button">Remove</button>
@@ -37,7 +37,7 @@
 			<div class="project fromtemplate">
 				<table>
 					<tr>
-						Project <td><label>Name</label></td>
+						<td><label>Project Name</label></td>
 						<td><input type="text" name="Project" required /> </td>
 					</tr>
 					<tr>
@@ -57,19 +57,19 @@
 			<table>
 				<tr>
 					<td><label>CompanyName</label></td>
-					<td><input type="text" name="WorkCompanyName" {{if .WorkCompanyName}} value="{{.WorkCompanyName}}" {{end}} required /></td>
+					<td><input type="text" name="WorkCompanyName" value="{{.CompanyName}}" required /></td>
 				</tr>
 				<tr>
 					<td><label>Title</label></td>
-					<td><input type="text" name="WorkTitle" {{if .WorkTitle}} value="{{.WorkTitle}}" {{end}} /></td>
+					<td><input type="text" name="WorkTitle" value="{{.Title}}" /></td>
 				</tr>
 				<tr>
 					<td><label>Duration</label></td>
-					<td><input type="text" name="WorkDuration" {{if .WorkDuration}} value="{{.WorkDuration}}" {{end}} /></td>
+					<td><input type="text" name="WorkDuration" value="{{.Duration}}" /></td>
 				</tr>
 				<tr>
-					Work <td><label>Skills</label></td>
-					<td><input type="text" name="WorkSkills" {{if .WorkSkills}} value="{{.WorkSkills}}" {{end}} placeholder="Skill1,Skill2" required /></td>
+					<td><label>Work Skills</label></td>
+					<td><input type="text" name="WorkSkills" value="{{Join .Skills `,`}}" placeholder="Skill1,Skill2" required /></td>
 				</tr>
 			</table>
 			<button type="button">Remove Work Experience</button>
@@ -91,7 +91,7 @@
 					<td><input type="text" name="WorkDuration" /></td>
 				</tr>
 				<tr>
-					Work <td><label>Skills</label></td>
+					<td><label>Work Skills</label></td>
 					<td><input type="text" name="WorkSkills" placeholder="Skill1,Skill2" required /></td>
 				</tr>
 				</table>
@@ -107,20 +107,20 @@
 			<table>
 				<tr>
 					<td><label>Name</label></td>
-					<td><input type="text" name="TrainingName" {{if .TrainingName}} value="{{.TrainingName}}" {{end}} required /></td>
+					<td><input type="text" name="TrainingName" value="{{.Name}}" required /></td>
 				</tr>
 				<tr>
 					<td><label>Institute</label></td>
-					<td><input type="text" name="TrainingInstitute" {{if .TrainingInstitute}} value="{{.TrainingInstitute}}" {{end}} /></td>
+					<td><input type="text" name="TrainingInstitute" value="{{.Institute}}" /></td>
 				</tr>
 				
 				<tr>
 					<td><label>Certificate</label></td>
-					<td><input type="text" name="TrainingCertificate" {{if .TrainingCertificate}} value="{{.TrainingCertificate}}" {{end}} /></td>
+					<td><input type="text" name="TrainingCertificate" value="{{.Certificate}}" /></td>
 				</tr>
 				<tr>
 					<td><label>Duration</label></td>
-					<td><input type="text" name="TrainingDuration" {{if .TrainingDuration}} value="{{.TrainingDuration}}" {{end}} /></td>
+					<td><input type="text" name="TrainingDuration"  value="{{.Duration}}" /></td>
 				</tr>
 			</table>
 			<button type="button">Remove Training</button>
@@ -159,17 +159,16 @@
 			<table>
 				<tr>
 					<td><label>Name</label></td>
-					<td><input type="text" name="EducationName" {{if .EducationName}} value="{{.EducationName}}" {{end}} required /></td>
+					<td><input type="text" name="EducationName" value="{{.Name}}" required /></td>
 				</tr>
 				<tr>
 					<td><label>Duration</label></td>
-					<td><input type="text" name="EducationDuration" {{if .EducationDuration}} value="{{.EducationDuration}}" {{end}} /></td>
+					<td><input type="text" name="EducationDuration" value="{{.Duration}}" /></td>
 				</tr>
 			</table>
 			<button type="button">Remove Education</button>
 		</div>
 		{{end}}
-		<div id="education">
 		<template id="educationTemplate">
 			<div class="education fromtemplate">
 				<table>
@@ -188,7 +187,7 @@
 	</div>
 	<button type="button" onclick="newItem('#education');">Add Education</button>
 	<h4>Skills</h4>
-	<input type="text" name="Skills" {{if .Skills}} value="{{.Skills}}" {{end}} palceholder="Skill1,Skill2" required />
+	<input type="text" name="Skills" {{if .Skills}} value="{{Join .Skills `,`}}" {{end}} palceholder="Skill1,Skill2" required />
 	<br>
 		<center><input type="Submit" value="Add Employee" /></center>
 </form>

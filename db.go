@@ -9,7 +9,7 @@ type Employee struct {
 	WorkExp  []WorkExperience
 	Training []Training
 	Education []Education
-	Skills    []Skill
+	Skills    []string
 }
 
 const EmployeeCreate = `
@@ -24,7 +24,7 @@ phoneno text
 type Project struct {
 	Pid         int
 	Name        string
-	Skills      []ProjectSkill
+	Skills      []string
 }
 
 const ProjectCreate = `
@@ -35,10 +35,6 @@ name text,
 foreign key (eid) references employee(eid) on delete cascade
 );
 `
-
-type ProjectSkill struct {
-	Name      string
-}
 
 const ProjectSkillCreate = `
 create table projectskill(
@@ -56,7 +52,7 @@ type WorkExperience struct {
 	CompanyName        string
 	Title              string
 	Duration           string
-	Skills             []WorkSkill
+	Skills             []string
 }
 
 const WorkExperienceCreate = `
@@ -69,10 +65,6 @@ duration text,
 foreign key (eid) references employee(eid) on delete cascade
 );
 `
-
-type WorkSkill struct {
-	Name      string
-}
 
 const WorkSkillCreate = `
 create table workskill(
@@ -120,10 +112,6 @@ foreign key (eid) references employee(eid) on delete cascade
 );
 `
 
-type Skill struct {
-	Name      string
-}
-
 const SkillCreate = `
 create table skill(
 eid integer not null,
@@ -131,4 +119,11 @@ name text,
 foreign key (eid) references employee(eid) on delete cascade,
 primary key (eid, name)
 );
+`
+
+const SkillViewCreate = `
+create view allskills as
+select eid, name from skill union
+select eid, name from projectskill union
+select eid, name from workskill;
 `

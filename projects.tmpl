@@ -4,7 +4,7 @@
 	<b>Skills:</b><br />
 		<ul>
 			{{range .Skills}}
-				<li>{{.Name}}</li>
+				<li><a href="/searchSkill?skills={{.}}">{{.}}</a></li>
 			{{end}}
 		</ul>
 {{end}}
