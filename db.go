@@ -15,9 +15,9 @@ type Employee struct {
 const EmployeeCreate = `
 create table employee(
 eid integer primary key,
-name text,
-email text,
-phoneno text
+name text collate nocase,
+email text collate nocase,
+phoneno text collate nocase
 );
 `
 	
@@ -32,7 +32,7 @@ const ProjectCreate = `
 create table project(
 pid integer primary key,
 eid integer not null,
-name text not null,
+name text not null collate nocase,
 url  text,
 foreign key (eid) references employee(eid) on delete cascade
 );
@@ -42,7 +42,7 @@ const ProjectSkillCreate = `
 create table projectskill(
 eid integer not null,
 pid integer not null,
-name text not null,
+name text not null collate nocase,
 foreign key (eid) references employee(eid) on delete cascade,
 foreign key (pid) references project(pid) on delete cascade,
 primary key (eid, pid, name)
@@ -61,9 +61,9 @@ const WorkExperienceCreate = `
 create table workexperience(
 wid integer primary key,
 eid integer not null,
-companyname text,
-title text,
-duration text,
+companyname text collate nocase,
+title text collate nocase,
+duration text collate nocase,
 foreign key (eid) references employee(eid) on delete cascade
 );
 `
@@ -72,7 +72,7 @@ const WorkSkillCreate = `
 create table workskill(
 eid integer not null,
 wid integer not null,
-name text not null,
+name text not null collate nocase,
 foreign key (eid) references employee(eid) on delete cascade,
 foreign key (wid) references workexperience(wid) on delete cascade,
 primary key (eid, wid, name)
@@ -92,11 +92,11 @@ const TrainingCreate = `
 create table training(
 tid integer primary key,
 eid integer not null,
-name text,
-institute text,
-certificate text,
+name text collate nocase,
+institute text collate nocase,
+certificate text collate nocase,
 certurl     text,
-duration text,
+duration text collate nocase,
 foreign key (eid) references employee(eid) on delete cascade
 );
 `
@@ -110,8 +110,8 @@ const EducationCreate = `
 create table education(
 edid integer primary key,
 eid integer not null,
-name text,
-duration text,
+name text collate nocase,
+duration text collate nocase,
 foreign key (eid) references employee(eid) on delete cascade
 );
 `
@@ -119,7 +119,7 @@ foreign key (eid) references employee(eid) on delete cascade
 const SkillCreate = `
 create table skill(
 eid integer not null,
-name text not null,
+name text not null collate nocase,
 foreign key (eid) references employee(eid) on delete cascade,
 primary key (eid, name)
 );

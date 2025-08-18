@@ -146,7 +146,6 @@ func GetProjects(ctx *context) (p []Project) {
 			break
 		}
 		pp.Skills = GetProjectSkills(ctx, pp.Pid)
-		log.Print("GetProjects: appending", pp, "to", p)
 		p = append(p, pp)
 	}
 	log.Println("r.Next: ", r.Next(), "r.Err(): ",r.Err())
@@ -154,7 +153,6 @@ func GetProjects(ctx *context) (p []Project) {
 		ctx.err =r.Err()
 		return
 	}
-	log.Println("getProjects returning:", p)
 	return
 }
 

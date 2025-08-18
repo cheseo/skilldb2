@@ -65,5 +65,10 @@ th, td {
     background-color: #ff2222
 }
 
+tbody tr:nth-child(odd) {
+  background-color: #aaaaaa;
+}
 
-
+tbody tr:nth-child(even) {
+  background-color: #eeeeee;
+}
