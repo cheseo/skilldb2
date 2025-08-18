@@ -69,11 +69,11 @@ th, td {
     background-color: #eefcee;
 }
 
-tbody tr:nth-child(odd) {
+.container tr:nth-child(odd) {
   background-color: #aaaaaa;
 }
 
-tbody tr:nth-child(even) {
+.container tr:nth-child(even) {
   background-color: #eeeeee;
 }
 
@@ -82,7 +82,7 @@ h1,h2,h3 {
      border-bottom: 1px solid black;
 }
 
-.container:hover{
+.container:hover, .fromtemplate:hover{
     background-color: #fafafa;
 }
 
@@ -92,4 +92,8 @@ h1,h2,h3 {
 
 .projectname {
     margin-left: -2ch;
+}
+
+.fromtemplate {
+    margin-bottom: 1ch;
 }
