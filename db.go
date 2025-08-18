@@ -24,6 +24,7 @@ phoneno text collate nocase
 type Project struct {
 	Pid         int
 	Name        string
+	Description string
 	Url         string
 	Skills      []string
 }
@@ -33,6 +34,7 @@ create table project(
 pid integer primary key,
 eid integer not null,
 name text not null collate nocase,
+description text,
 url  text,
 foreign key (eid) references employee(eid) on delete cascade
 );
@@ -53,6 +55,7 @@ type WorkExperience struct {
 	Wid                int
 	CompanyName        string
 	Title              string
+	Description        string
 	Duration           string
 	Skills             []string
 }
