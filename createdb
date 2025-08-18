@@ -1,19 +1,4 @@
 #!/bin/bash
 
-awk '/.*Create =/ {start=1; next} /^`/{start=0; print ""; next} start{print}' db.go
-
-echo ".pragma foreignkeys=on;"
-for (( i=1; i<100; i++); do
-	name=$(rname 2) email=$(remail) phone=$(rphone)
-	pname=$(rname 2) pskills=($(rskill 3))
-	cname=$(rname 1) title="$(rname 1) $(rpos)" duration=$(rdur) wskills=$(rskill 4)
-	tname=$(rname 1) institute=$(rname 1) certification=$(rname 1 1) tduration=$(rdur)
-	ename=$(rname 1 2) edur=$(rdur)
-	printf "insert into employee(eid, name, email, phoneno) values(%s,'%s','%s','%s');\n" "$i" "$name" "$email" "$phone"
-	printf "insert into project(pid, eid, name) values(%s, %s, '%s');\n" "$i" "$i" "$pname"
-	for s in "${pskills[@]}"; do
-	    printf "insert into projectskill(eid, pid, name) values(%s, %s, '%s');\n" "$i" "$i" "$s"
-	done
-	printf "insert into workexperience(wid, eid, companyname, title, duration) values(%s, %s, '%s', '%s', '%s');\n"
-done
-     
+awk '/.*Create =/ {start=1; next} /^`/{start=0; print ""; next} start{print}' db.go \
+    | sqlite3 db.db
