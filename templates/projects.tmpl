@@ -1,7 +1,10 @@
-<h5>{{.Name}}</h5>
-
+<div class="projectname">
+{{if .Url}}<a href="{{.Url}}">{{end}}
+	{{.Name}}
+	{{if .Url}}</a>{{end}}
+</div>
 {{if .Skills}}
-	<b>Skills:</b><br />
+	<!-- <b>Skills:</b><br /> -->
 		<ul>
 			{{range .Skills}}
 				<li><a href="/searchSkill?skills={{.}}">{{.}}</a></li>

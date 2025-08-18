@@ -26,6 +26,10 @@
 					<td><input type="text" name="Project" value="{{.Name}}" required /> </td>
 				</tr>
 				<tr>
+					<td><label>Project URL</label></td>
+					<td><input type="text" name="Project" value="{{.Url}}" /> </td>
+				</tr>
+				<tr>
 					<td><label>Skills</label></td>
 					<td><input type="text" name="ProjectSkill" value="{{Join .Skills `,`}}" placeholder="Skill1,Skill2" required /> </td>
 				</tr>
@@ -39,6 +43,10 @@
 					<tr>
 						<td><label>Project Name</label></td>
 						<td><input type="text" name="Project" required /> </td>
+					</tr>
+					<tr>
+						<td><label>Project URL</label></td>
+						<td><input type="text" name="Project" /> </td>
 					</tr>
 					<tr>
 						<td><label>Skills</label></td>
@@ -119,6 +127,10 @@
 					<td><input type="text" name="TrainingCertificate" value="{{.Certificate}}" /></td>
 				</tr>
 				<tr>
+					<td><label>Certificate URL</label></td>
+					<td><input type="text" name="TrainingCertificate" value="{{.CertUrl}}" /></td>
+				</tr>
+				<tr>
 					<td><label>Duration (years)</label></td>
 					<td><input type="number" name="TrainingDuration"  value="{{.Duration}}" /></td>
 				</tr>
@@ -140,6 +152,10 @@
 				
 				<tr>
 					<td><label>Certificate</label></td>
+					<td><input type="text" name="TrainingCertificate" /></td>
+				</tr>
+				<tr>
+					<td><label>Certificate URL</label></td>
 					<td><input type="text" name="TrainingCertificate" /></td>
 				</tr>
 				<tr>

@@ -1,20 +1,19 @@
 <table>
 <tr>
 	<td>CompanyName</td>
-	<td><input type="text" value="{{.CompanyName}}" disabled /><br></br>
+	<td>{{.CompanyName}}
 </tr>
-
 <tr>
 	<td>Title</td>
-	<td><input type="text" value="{{.Title}}" disabled /><br></br>
+	<td>{{.Title}}
 </tr>
-
 <tr>
 	<td>Duration</td>
-	<td><input type="text" value="{{.Duration}}" disabled /><br></br>
+	<td>{{.Duration}}
 </tr>
 </table>
 {{if .Skills}}
+<h5>Skills</h4>
 	<ul>
 		{{range .Skills}}
 		<li><a href="/searchSkill?skills={{.}}">{{.}}</a></li>

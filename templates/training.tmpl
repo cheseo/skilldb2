@@ -1,28 +1,31 @@
 <table>
 <tr>
 	<td>Name</td>
-	<td><input type="text" value="{{.Name}}" disabled /><br></br>
+	<td>{{.Name}}</td>
 </tr>
 
 <tr>
 	<td>Institute</td>
-	<td><input type="text" value="{{.Institute}}" disabled /><br></br>
+	<td>{{.Institute}}</td>
 </tr>
 
 <tr>
-	<td>Certification</td>
-	<td><input type="text" value="{{.Certification}}" disabled /><br></br>
+	<td>Certificate</td>
+	<td>
+		{{if .CertUrl}}
+		<a target="_blank" href="{{.CertUrl}}">
+		{{end}}
+		{{.Certificate}}
+		{{if .CertUrl}}
+		</a>
+		{{end}}
+	</td>
 </tr>
-
+{{if .Duration}}
 <tr>
 	<td>Duration</td>
-	<td><input type="text" value="{{.Duration}}" disabled /><br></br>
+	<td>{{.Duration}}</td>
 </tr>
-</table>
-{{if .Skills}}
-	<ul>
-		{{range .Skills}}
-		<li>{{.Name}}</li>
-		{{end}}
-	</ul>
 {{end}}
+</table>
+

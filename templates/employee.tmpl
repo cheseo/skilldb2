@@ -1,64 +1,66 @@
 {{template "header.tmpl" "Employee Details"}}
 
 <h3>{{.Name}}</h3>
-<a href="/editEmployee?eid={{.Eid}}"><button type="text">Edit</button></a><br />
+<div class="editbuttons">
+<a href="/editEmployee?eid={{.Eid}}"><button id="empEdit" type="text">Edit</button></a>
 <form method="post" action="/deleteEmployee">
 	<input type="hidden" name="eid" value="{{.Eid}}" />
-	<button type="submit">Delete</button>
+	<button id="empDel" type="submit">Delete</button>
 </form>
-<table>
+</div>
+<table class="basicinfo">
 	<tr>
 		<td>Eid</td>
-		<td><input type="text" value="{{.Eid}}" disabled /><br /></td>
+		<td>{{.Eid}}</td>
 	</tr>
 	<tr>
 		<td>Name</td>
-		<td><input type="text" value="{{.Name}}" disabled /><br /></td>
+		<td>{{.Name}}<br /></td>
 	</tr>
 	<tr>
 		<td>Email</td>
-		<td><input type="text" value="{{.Email}}" disabled /><br /></td>
+		<td>{{.Email}}<br /></td>
 	</tr>
 	<tr>
 		<td>PhoneNo</td>
-		<td><input type="text" value="{{.PhoneNo}}" disabled /><br /></td>
+		<td>{{.PhoneNo}}<br /></td>
 	</tr>
 </table>
 
 {{if .Projects }}
 <h4>Projects</h4>
-<ul>
-	{{range .Projects}}
-	<li>{{template "projects.tmpl" .}}</li>
-	{{end}}
-</ul>
+{{range .Projects}}
+	<div class="project container">
+		{{template "projects.tmpl" .}}
+	</div>
+{{end}}
 {{end}}
 
 {{if .WorkExp }}
 <h4>WorkExp </h4>
-<ul>
 	{{range .WorkExp}}
-	<li>{{template "workexp.tmpl" .}}</li>
+	<div class="workexp container">
+		{{template "workexp.tmpl" .}}
+	</div>
 	{{end}}
-</ul>
 {{end}}
 
 {{if .Training}}
 <h4>Training</h4>
-<ul>
 	{{range .Training}}
-	<li>{{template "training.tmpl" .}}</li>
+	<div class="training container">
+		{{template "training.tmpl" .}}
+	</div>
 	{{end}}
-</ul>
 {{end}}
 
 {{if .Education }}
 <h4>Education</h4>
-<ul>
 	{{range .Education}}
-	<li>{{template "education.tmpl" .}}</li>
+	<div class="education container">
+	{{template "education.tmpl" .}}
+	</div>
 	{{end}}
-</ul>
 {{end}}
 
 
