@@ -13,8 +13,6 @@ type context struct {
 	eid int
 }
 
-var r *sql.Rows
-
 func BeginTransaction(ctx *context){
 	_, ctx.err = ctx.db.Exec("begin transaction;")
 }
@@ -28,6 +26,7 @@ func Commit(ctx *context){
 }
 
 func GetAllEmployees(ctx *context, filterEid []int) (ee []Employee){
+	var r *sql.Rows
 	if(ctx.err != nil){
 		return
 	}
@@ -44,14 +43,14 @@ func GetAllEmployees(ctx *context, filterEid []int) (ee []Employee){
 		r, ctx.err = ctx.db.Query(query)
 	}
 	if ctx.err != nil {
-		ctx.err = fmt.Errorf("GetProjects: %w", ctx.err)
+		ctx.err = fmt.Errorf("GetAllEmployees: %w", ctx.err)
 		return
 	}
 	defer r.Close()
 	for r.Next() {
 		e := Employee{}
-		if ctx.err = r.Scan(&e.Eid, &e.Name, &e.Email, &e.PhoneNo); ctx.err != nil {
-			ctx.err = fmt.Errorf("GetProjects: %w", ctx.err)
+		if ctx.err =r.Scan(&e.Eid, &e.Name, &e.Email, &e.PhoneNo); ctx.err != nil {
+			ctx.err = fmt.Errorf("GetAllEmployees: %w", ctx.err)
 			break
 		}
 		ee = append(ee, e)
@@ -79,6 +78,7 @@ func InsertEmployee(ctx *context, e Employee) {
 }
 
 func DeleteEmployee(ctx *context) {
+
 	if ctx.err != nil {
 		return
 	}
@@ -86,19 +86,19 @@ func DeleteEmployee(ctx *context) {
 }
 
 func GetEmployee(ctx *context)(e Employee) {
+
 	if(ctx.err != nil){
 		return
 	}
 	query := `select Name, Email, PhoneNo from employee where eid = ?;`
 	e.Eid = ctx.eid
 	ctx.db.QueryRow(query, ctx.eid).Scan(&e.Name, &e.Email, &e.PhoneNo)
-	log.Println("got employee: ", e)
 	e.Projects = GetProjects(ctx)
 	e.WorkExp = GetWorkExperience(ctx)
 	e.Training = GetTraining(ctx)
 	e.Education = GetEducation(ctx)
 	e.Skills = GetSkills(ctx)
-	log.Println("got full employee: ", e)
+	log.Println("got employee: ", e)
 	return
 }
 
@@ -108,8 +108,8 @@ func InsertProjects(ctx *context, pp []Project) {
 			ctx.err = fmt.Errorf("InsertProjects: %w", ctx.err)
 			return
 		}
-		query := `insert into project(eid, Name) values ( ?, ? ) returning pid;`
-		ctx.db.QueryRow(query, ctx.eid, p.Name).Scan(&p.Pid)
+		query := `insert into project(eid, name, url) values (?, ?, ?) returning pid;`
+		ctx.db.QueryRow(query, ctx.eid, p.Name, p.Url).Scan(&p.Pid)
 		InsertProjectSkill(ctx, p.Pid, p.Skills)
 	}
 }
@@ -126,33 +126,42 @@ func InsertProjectSkill(ctx *context, pid int, skills []string){
 }
 
 func GetProjects(ctx *context) (p []Project) {
+	var r *sql.Rows
 	if(ctx.err != nil){
 		return
 	}
-	query := `select pid, name from project where eid = ?;`
+	query := `select count(*), pid, name, url from project where eid = ?;`
 	r, ctx.err = ctx.db.Query(query, ctx.eid)
 	if ctx.err != nil {
 		ctx.err = fmt.Errorf("GetProjects: %w", ctx.err)
 		return
 	}
 	defer r.Close()
+	log.Println("rows is", r)
 	for r.Next() {
 		pp := Project{}
-		if ctx.err = r.Scan(&pp.Pid, &pp.Name); ctx.err != nil {
+		count := 0
+		if ctx.err =r.Scan(&count, &pp.Pid, &pp.Name, &pp.Url); ctx.err != nil {
+			log.Println("ERROR GetProjects: %w", ctx.err)
 			ctx.err = fmt.Errorf("GetProjects: %w", ctx.err)
 			break
 		}
+		log.Println("count is: ", count)
 		pp.Skills = GetProjectSkills(ctx, pp.Pid)
+		log.Print("GetProjects: appending", pp, "to", p)
 		p = append(p, pp)
 	}
+	log.Println("r.Next: ", r.Next(), "r.Err(): ",r.Err())
 	if r.Err() != nil && ctx.err == nil{
-		ctx.err = r.Err()
+		ctx.err =r.Err()
 		return
 	}
+	log.Println("getProjects returning:", p)
 	return
 }
 
 func GetProjectSkills(ctx *context, pid int) (s []string){
+	var r *sql.Rows
 	if(ctx.err != nil){
 		return
 	}
@@ -165,14 +174,14 @@ func GetProjectSkills(ctx *context, pid int) (s []string){
 	defer r.Close()
 	for r.Next() {
 		ps := ""
-		if ctx.err = r.Scan(&ps); ctx.err != nil {
+		if ctx.err =r.Scan(&ps); ctx.err != nil {
 			ctx.err = fmt.Errorf("GetProjectSkills: %w", ctx.err)
 			break
 		}
 		s = append(s, ps)
 	}
 	if r.Err() != nil && ctx.err == nil{
-		ctx.err = r.Err()
+		ctx.err =r.Err()
 		return
 	}
 	return
@@ -191,6 +200,7 @@ func InsertWorkExperience(ctx *context, ww []WorkExperience) {
 }
 
 func GetWorkExperience(ctx *context) (ww []WorkExperience) {
+	var r *sql.Rows
 	if(ctx.err != nil){
 		return
 	}
@@ -203,15 +213,15 @@ func GetWorkExperience(ctx *context) (ww []WorkExperience) {
 	defer r.Close()
 	for r.Next() {
 		w := WorkExperience{}
-		if ctx.err = r.Scan(&w.Wid, &w.CompanyName, &w.Title, &w.Duration); ctx.err != nil {
-			ctx.err = fmt.Errorf("GetWorkExperience: r.Scan: %w", ctx.err)
+		if ctx.err =r.Scan(&w.Wid, &w.CompanyName, &w.Title, &w.Duration); ctx.err != nil {
+			ctx.err = fmt.Errorf("GetWorkExperience:r.Scan: %w", ctx.err)
 			break
 		}
 		w.Skills = GetWorkSkills(ctx, w.Wid)
 		ww = append(ww, w)
 	}
 	if r.Err() != nil && ctx.err == nil{
-		ctx.err = r.Err()
+		ctx.err =r.Err()
 		return
 	}
 	return
@@ -229,6 +239,7 @@ func InsertWorkSkill(ctx *context, wid int, skills []string) {
 }
 
 func GetWorkSkills(ctx *context, wid int) (s []string){
+	var r *sql.Rows
 	if(ctx.err != nil){
 		return
 	}
@@ -241,14 +252,14 @@ func GetWorkSkills(ctx *context, wid int) (s []string){
 	defer r.Close()
 	for r.Next() {
 		ws := ""
-		if ctx.err = r.Scan(&ws); ctx.err != nil {
+		if ctx.err =r.Scan(&ws); ctx.err != nil {
 			ctx.err = fmt.Errorf("GetWorkSkills: %w", ctx.err)
 			break
 		}
 		s = append(s, ws)
 	}
 	if r.Err() != nil && ctx.err == nil{
-		ctx.err = r.Err()
+		ctx.err =r.Err()
 		return
 	}
 	return
@@ -260,16 +271,17 @@ func InsertTraining(ctx *context, tt []Training) {
 			ctx.err = fmt.Errorf("InsertTraining: %w", ctx.err)
 			return
 		}
-		query := `insert into training( eid, Name, Institute, Certificate, Duration) values ( ?, ?, ?, ?, ? );`
-		_, ctx.err = ctx.db.Exec(query, ctx.eid, t.Name, t.Institute, t.Certificate, t.Duration)
+		query := `insert into training( eid, Name, Institute, Certificate, certurl, Duration) values ( ?, ?, ?, ?, ? );`
+		_, ctx.err = ctx.db.Exec(query, ctx.eid, t.Name, t.Institute, t.Certificate, t.CertUrl, t.Duration)
 	}
 }
 
 func GetTraining(ctx *context) (tt []Training) {
+	var r *sql.Rows
 	if(ctx.err != nil){
 		return
 	}
-	query := `select tid, name, institute, certificate, duration from training where eid = ?;`
+	query := `select tid, name, institute, certificate, certurl, duration from training where eid = ?;`
 	r, ctx.err = ctx.db.Query(query, ctx.eid)
 	if ctx.err != nil {
 		ctx.err = fmt.Errorf("GetTraining: db.Query: %w", ctx.err)
@@ -278,14 +290,14 @@ func GetTraining(ctx *context) (tt []Training) {
 	defer r.Close()
 	for r.Next() {
 		t := Training{}
-		if ctx.err = r.Scan(&t.Tid, &t.Name, &t.Institute, &t.Certificate, &t.Duration); ctx.err != nil {
-			ctx.err = fmt.Errorf("GetTraining: r.Scan: %w", ctx.err)
+		if ctx.err =r.Scan(&t.Tid, &t.Name, &t.Institute, &t.Certificate, &t.CertUrl, &t.Duration); ctx.err != nil {
+			ctx.err = fmt.Errorf("GetTraining:r.Scan: %w", ctx.err)
 			break
 		}
 		tt = append(tt, t)
 	}
 	if r.Err() != nil && ctx.err == nil{
-		ctx.err = r.Err()
+		ctx.err =r.Err()
 		return
 	}
 	return
@@ -303,6 +315,7 @@ func InsertEducation(ctx *context, ee []Education) {
 }
 
 func GetEducation(ctx *context) (ee []Education){
+	var r *sql.Rows
 	if(ctx.err != nil){
 		return
 	}
@@ -315,14 +328,14 @@ func GetEducation(ctx *context) (ee []Education){
 	defer r.Close()
 	for r.Next() {
 		e := Education{}
-		if ctx.err = r.Scan(&e.Name, &e.Duration); ctx.err != nil {
+		if ctx.err =r.Scan(&e.Name, &e.Duration); ctx.err != nil {
 			ctx.err = fmt.Errorf("GetEducation: %w", ctx.err)
 			break
 		}
 		ee = append(ee, e)
 	}
 	if r.Err() != nil && ctx.err == nil{
-		ctx.err = r.Err()
+		ctx.err =r.Err()
 		return
 	}
 	return
@@ -340,6 +353,7 @@ func InsertSkill(ctx *context, ss []string) {
 }
 
 func GetSkills(ctx *context) (ss []string){
+	var r *sql.Rows
 	if(ctx.err != nil){
 		return
 	}
@@ -352,20 +366,21 @@ func GetSkills(ctx *context) (ss []string){
 	defer r.Close()
 	for r.Next() {
 		s := ""
-		if ctx.err = r.Scan(&s); ctx.err != nil {
+		if ctx.err =r.Scan(&s); ctx.err != nil {
 			ctx.err = fmt.Errorf("GetSkills: %w", ctx.err)
 			break
 		}
 		ss = append(ss, s)
 	}
 	if r.Err() != nil && ctx.err == nil{
-		ctx.err = fmt.Errorf("GetSkills: %w", r.Err())
+		ctx.err = fmt.Errorf("GetSkills: %w",r.Err())
 		return
 	}
 	return
 }
 
 func SearchSkills(ctx *context, s []string) (eids []int){
+	var r *sql.Rows
 	if(ctx.err != nil){
 		return
 	}
@@ -384,7 +399,7 @@ func SearchSkills(ctx *context, s []string) (eids []int){
 	defer r.Close()
 	for r.Next(){
 		e := 0
-		if ctx.err = r.Scan(&e); ctx.err != nil {
+		if ctx.err =r.Scan(&e); ctx.err != nil {
 			ctx.err = fmt.Errorf("SearchSkills: %w", ctx.err)
 			return
 		}

@@ -24,6 +24,7 @@ phoneno text
 type Project struct {
 	Pid         int
 	Name        string
+	Url         string
 	Skills      []string
 }
 
@@ -31,7 +32,8 @@ const ProjectCreate = `
 create table project(
 pid integer primary key,
 eid integer not null,
-name text,
+name text not null,
+url  text,
 foreign key (eid) references employee(eid) on delete cascade
 );
 `
@@ -40,7 +42,7 @@ const ProjectSkillCreate = `
 create table projectskill(
 eid integer not null,
 pid integer not null,
-name text,
+name text not null,
 foreign key (eid) references employee(eid) on delete cascade,
 foreign key (pid) references project(pid) on delete cascade,
 primary key (eid, pid, name)
@@ -70,7 +72,7 @@ const WorkSkillCreate = `
 create table workskill(
 eid integer not null,
 wid integer not null,
-name text,
+name text not null,
 foreign key (eid) references employee(eid) on delete cascade,
 foreign key (wid) references workexperience(wid) on delete cascade,
 primary key (eid, wid, name)
@@ -82,6 +84,7 @@ type Training struct {
 	Name         string
 	Institute    string
 	Certificate  string
+	CertUrl      string
 	Duration     string
 }
 
@@ -92,6 +95,7 @@ eid integer not null,
 name text,
 institute text,
 certificate text,
+certurl     text,
 duration text,
 foreign key (eid) references employee(eid) on delete cascade
 );
@@ -115,7 +119,7 @@ foreign key (eid) references employee(eid) on delete cascade
 const SkillCreate = `
 create table skill(
 eid integer not null,
-name text,
+name text not null,
 foreign key (eid) references employee(eid) on delete cascade,
 primary key (eid, name)
 );
