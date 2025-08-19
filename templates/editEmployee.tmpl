@@ -27,7 +27,7 @@
 				</tr>
 				<tr>
 					<td><label>Project URL</label></td>
-					<td><input type="text" name="Project" value="{{.Url}}" /> </td>
+					<td><input type="url" pattern="https://.*" name="Project" value="{{.Url}}" /> </td>
 				</tr>
 				<tr>
 					<td><label>Skills</label></td>
@@ -46,7 +46,7 @@
 					</tr>
 					<tr>
 						<td><label>Project URL</label></td>
-						<td><input type="text" name="Project" /> </td>
+						<td><input type="url" pattern="https://.*" name="Project" /> </td>
 					</tr>
 					<tr>
 						<td><label>Skills</label></td>
@@ -128,7 +128,7 @@
 				</tr>
 				<tr>
 					<td><label>Certificate URL</label></td>
-					<td><input type="text" name="TrainingCertificate" value="{{.CertUrl}}" /></td>
+					<td><input type="url" pattern="https://.*" name="TrainingCertificate" value="{{.CertUrl}}" /></td>
 				</tr>
 				<tr>
 					<td><label>Duration (years)</label></td>
@@ -156,7 +156,7 @@
 				</tr>
 				<tr>
 					<td><label>Certificate URL</label></td>
-					<td><input type="text" name="TrainingCertificate" /></td>
+					<td><input type="url" pattern="https://.*" name="TrainingCertificate" /></td>
 				</tr>
 				<tr>
 					<td><label>Duration (years)</label></td>
@@ -204,8 +204,8 @@
 	<button type="button" onclick="newItem('#education');">Add Education</button>
 	<h4>Skills</h4>
 	<input type="text" name="Skills" {{if .Skills}} value="{{Join .Skills `,`}}" {{end}} palceholder="Skill1,Skill2" required />
-	<!-- <br> -->
-		<center><input type="Submit" value="Add Employee" /></center>
+	<center><span id="invalidForm">Form is Invalid.</span></center>
+	<center><input type="Submit" value="Add Employee" /></center>
 </form>
 <script type="text/javascript">
 	function removeParentButton(elem){
