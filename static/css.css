@@ -5,7 +5,6 @@ html {
 @media(width > 80ch){
     body{
 	width: 80%;
-	margin: auto;
 	line-height: 1.5;
 	font-size: 1.2em;
     }
@@ -15,6 +14,15 @@ html {
     nav > a {
 	padding: 2ch 3ch;
     }
+}
+@media(width <= 80ch){
+    nav > a {
+	padding: 2ch 1ch;
+    }
+}
+
+body {
+    margin: auto;
 }
 
 nav {

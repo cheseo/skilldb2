@@ -3,6 +3,7 @@
 	<input type="text" name="skills" class="searchbar" {{if .Term}} value="{{.Term}}" {{end}} placeholder="Skill1, Skill2" />
 	<button type="Submit">Search 🔎</button>
 </form>
+<br>
 {{if .Err}}
 	<div class="searcherror">
 		<center>{{.Err}}</center>
