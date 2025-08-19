@@ -1,21 +1,28 @@
 html {
   font-family: Helvetica, serif;
 }
-body{
-    width: 80ch;
-    margin: auto;
-    line-height: 1.5;
-    font-size: 1.2em;
+
+@media(width > 80ch){
+    body{
+	width: 80%;
+	margin: auto;
+	line-height: 1.5;
+	font-size: 1.2em;
+    }
+    .projectname {
+	margin-left: -2ch;
+    }
+    nav > a {
+	padding: 2ch 3ch;
+    }
 }
 
 nav {
     border-bottom: 1px solid black;
     background-color: #8899aa;
-    width: 100%;
 }
 
 nav > a {
-    padding: 2ch 3ch;
     color: white;
     display: inline-block;
     border-right: 1px solid gray;
@@ -34,7 +41,6 @@ input {
 }
 
 .searcherror {
-    margin: 2ch;
     margin-top: 5ch;
 }
 
@@ -52,7 +58,8 @@ button {
     border-collapse: collapse;
     margin: 10px;
 }
-th, td {
+
+td {
     padding: 0.6em;
     vertical-align: top;
 }
@@ -90,10 +97,10 @@ h1,h2,h3 {
     margin-top: 0.5ch;
 }
 
-.projectname {
-    margin-left: -2ch;
-}
-
 .fromtemplate {
     margin-bottom: 1ch;
+}
+
+a:hover{
+    font-weight: bold;
 }
