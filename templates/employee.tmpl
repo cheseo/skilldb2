@@ -3,10 +3,6 @@
 <h2>{{.Name}}</h2>
 <div class="editbuttons">
 <a href="/editEmployee?eid={{.Eid}}"><button id="empEdit" type="text">Edit</button></a>
-<form method="post" action="/deleteEmployee">
-	<input type="hidden" name="eid" value="{{.Eid}}" />
-	<button id="empDel" type="submit">Delete</button>
-</form>
 </div>
 <div class="container">
 <table class="basicinfo">

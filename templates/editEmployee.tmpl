@@ -1,5 +1,11 @@
 {{template "header.tmpl" "Employee Editor"}}
 <h3>Add Employee</h3>
+{{if .Eid}}
+<form method="post" action="/deleteEmployee">
+	<input type="hidden" name="eid" value="{{.Eid}}" />
+	<button class="editbuttons" id="empDel" type="submit">Delete</button>
+</form>
+{{end}}
 <form method="post">
 	{{if .}}<input type="hidden" name="eid" value="{{.Eid}}" />{{end}}
 	<table>
