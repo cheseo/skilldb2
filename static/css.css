@@ -128,3 +128,25 @@ h1,h2,h3 {
 a:hover{
     font-weight: bold;
 }
+
+@media print {
+    nav {
+	display: none;
+    }
+    h1,h2,h3 {
+     text-align: center;
+     border-bottom: 2px solid black;
+    }
+    .editbuttons {
+        display: none;
+    }
+    a {
+        color: black;
+    }
+    a[href^="http"]::after {
+        content: ' (' attr(href) ')';
+    }
+    .container {
+	border-bottom: 2px solid black;
+    }
+}

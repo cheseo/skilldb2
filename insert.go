@@ -267,7 +267,7 @@ func InsertTraining(ctx *context, tt []Training) {
 			ctx.err = fmt.Errorf("InsertTraining: %w", ctx.err)
 			return
 		}
-		query := `insert into training( eid, Name, Institute, Certificate, certurl, Duration) values ( ?, ?, ?, ?, ? );`
+		query := `insert into training( eid, Name, Institute, Certificate, certurl, Duration) values ( ?, ?, ?, ?, ?, ? );`
 		_, ctx.err = ctx.db.Exec(query, ctx.eid, t.Name, t.Institute, t.Certificate, t.CertUrl, t.Duration)
 	}
 }

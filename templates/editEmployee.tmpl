@@ -33,7 +33,7 @@
 				</tr>
 				<tr>
 					<td><label>Project URL</label></td>
-					<td><input type="url" pattern="https://.*" name="Project" value="{{.Url}}" /> </td>
+					<td><input type="url" pattern="https://.*" name="Project" value="{{.Url}}" required/> </td>
 				</tr>
 				<tr>
 					<td><label>Skills</label></td>
@@ -52,7 +52,7 @@
 					</tr>
 					<tr>
 						<td><label>Project URL</label></td>
-						<td><input type="url" pattern="https://.*" name="Project" /> </td>
+						<td><input type="url" pattern="https://.*" name="Project" required/> </td>
 					</tr>
 					<tr>
 						<td><label>Skills</label></td>
@@ -75,11 +75,11 @@
 				</tr>
 				<tr>
 					<td><label>Title</label></td>
-					<td><input type="text" name="WorkTitle" value="{{.Title}}" /></td>
+					<td><input type="text" name="WorkTitle" value="{{.Title}}" required/></td>
 				</tr>
 				<tr>
 					<td><label>Duration (years)</label></td>
-					<td><input type="number" name="WorkDuration" value="{{.Duration}}" /></td>
+					<td><input type="number" name="WorkDuration" value="{{.Duration}}" required/></td>
 				</tr>
 				<tr>
 					<td><label>Work Skills</label></td>
@@ -98,11 +98,11 @@
 				</tr>
 				<tr>
 					<td><label>Title</label></td>
-					<td><input type="text" name="WorkTitle" /></td>
+					<td><input type="text" name="WorkTitle" required/></td>
 				</tr>
 				<tr>
 					<td><label>Duration (years)</label></td>
-					<td><input type="number" name="WorkDuration" /></td>
+					<td><input type="number" name="WorkDuration" required/></td>
 				</tr>
 				<tr>
 					<td><label>Work Skills</label></td>
@@ -125,20 +125,20 @@
 				</tr>
 				<tr>
 					<td><label>Institute</label></td>
-					<td><input type="text" name="TrainingInstitute" value="{{.Institute}}" /></td>
+					<td><input type="text" name="TrainingInstitute" value="{{.Institute}}" required/></td>
 				</tr>
 				
 				<tr>
 					<td><label>Certificate</label></td>
-					<td><input type="text" name="TrainingCertificate" value="{{.Certificate}}" /></td>
+					<td><input type="text" name="TrainingCertificate" value="{{.Certificate}}" required/></td>
 				</tr>
 				<tr>
 					<td><label>Certificate URL</label></td>
-					<td><input type="url" pattern="https://.*" name="TrainingCertificate" value="{{.CertUrl}}" /></td>
+					<td><input type="url" pattern="https://.*" name="TrainingCertificate" value="{{.CertUrl}}" required/></td>
 				</tr>
 				<tr>
-					<td><label>Duration (years)</label></td>
-					<td><input type="number" name="TrainingDuration"  value="{{.Duration}}" /></td>
+					<td><label>Duration (months)</label></td>
+					<td><input type="number" name="TrainingDuration"  value="{{.Duration}}" required/></td>
 				</tr>
 			</table>
 			<button type="button">Remove Training</button>
@@ -153,20 +153,20 @@
 				</tr>
 				<tr>
 					<td><label>Institute</label></td>
-					<td><input type="text" name="TrainingInstitute" /></td>
+					<td><input type="text" name="TrainingInstitute" required/></td>
 				</tr>
 				
 				<tr>
 					<td><label>Certificate</label></td>
-					<td><input type="text" name="TrainingCertificate" /></td>
+					<td><input type="text" name="TrainingCertificate" required/></td>
 				</tr>
 				<tr>
 					<td><label>Certificate URL</label></td>
-					<td><input type="url" pattern="https://.*" name="TrainingCertificate" /></td>
+					<td><input type="url" pattern="https://.*" name="TrainingCertificate" required/></td>
 				</tr>
 				<tr>
-					<td><label>Duration (years)</label></td>
-					<td><input type="number" name="TrainingDuration" /></td>
+					<td><label>Duration (months)</label></td>
+					<td><input type="number" name="TrainingDuration" required/></td>
 				</tr>
 				</table>
 				<button type="button">Remove Training</button>
@@ -184,8 +184,8 @@
 					<td><input type="text" name="EducationName" value="{{.Name}}" required /></td>
 				</tr>
 				<tr>
-					<td><label>Duration</label></td>
-					<td><input type="text" name="EducationDuration" value="{{.Duration}}" /></td>
+					<td><label>Duration (years)</label></td>
+					<td><input type="text" name="EducationDuration" value="{{.Duration}}" required/></td>
 				</tr>
 			</table>
 			<button type="button">Remove Education</button>
@@ -199,8 +199,8 @@
 					<td><input type="text" name="EducationName" required /></td>
 				</tr>
 				<tr>
-					<td><label>Duration</label></td>
-					<td><input type="text" name="EducationDuration" /></td>
+					<td><label>Duration (years)</label></td>
+					<td><input type="text" name="EducationDuration" required/></td>
 				</tr>
 				</table>
 				<button type="button">Remove Education</button>
