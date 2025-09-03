@@ -27,6 +27,7 @@ func employeeForm(r *http.Request) (Employee){
 	for k, v := range r.PostForm["Project"] {
 		pp = append(pp, Project{Name: v,
 			Skills: strings.Split(r.PostForm["ProjectSkill"][k], ","),
+			Url: r.PostForm["ProjectUrl"][k],
 		})
 	}
 	e.Projects = pp
@@ -46,6 +47,7 @@ func employeeForm(r *http.Request) (Employee){
 		tt = append(tt, Training{Name: v,
 			Institute: r.PostForm["TrainingInstitute"][k],
 			Certificate: r.PostForm["TrainingCertificate"][k],
+			CertUrl: r.PostForm["TrainingCertificateUrl"][k],
 			Duration: r.PostForm["TrainingDuration"][k],
 		})
 	}
